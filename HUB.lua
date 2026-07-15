@@ -1,0 +1,45 @@
+-- // =============================================== \\
+-- //          GAME DETECTOR + SCRIPT LOADER
+-- //          Tus 3 juegos agregados
+-- // =============================================== \\
+
+local PlaceId = game.PlaceId
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+print("🔍 Detector de juegos cargado...")
+
+-- ================== TUS SCRIPTS ==================
+local Scripts = {
+
+    [120766736586332] = function()  -- +1 Strength Per Click
+        print("🎮 +1 Fuerza por Clic detectado → Ejecutando script...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/imgmtt-bot/Speed/refs/heads/main/Fuerzaxclick.lua"))()
+    end,
+
+    [116223724643557] = function()  -- +1 Magic Evolution
+        print("🎮 +1 Evolución Mágica detectado → Ejecutando script...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/imgmtt-bot/Speed/refs/heads/main/Evolucion.lua"))()
+    end,
+
+    [86378115369061] = function()   -- +1 Backflip Obby Escape
+        print("🎮 +1 Backflip Obby detectado → Ejecutando script...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/imgmtt-bot/Speed/refs/heads/main/Speed.lua"))()
+    end,
+}
+
+-- ================== DETECCIÓN ==================
+local scriptFunc = Scripts[PlaceId]
+
+if scriptFunc then
+    scriptFunc()
+else
+    print("❌ NO SUPPORT")
+    warn("Este juego no está soportado en este loader.")
+    
+    -- Cambia a false si no quieres que te kickee
+    if true then
+        wait(1.5)
+        LocalPlayer:Kick("🚫 NO SUPPORT - Juego no agregado")
+    end
+end
