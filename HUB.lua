@@ -1,11 +1,10 @@
 -- =============================================== \\
 -- // GAME DETECTOR + SCRIPT LOADER
--- // 5 juegos agregados
+-- // 6 juegos agregados
 -- =============================================== \\
 local PlaceId = game.PlaceId
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
-
 print("🔍 Detector de juegos cargado...")
 
 -- ================== TUS SCRIPTS ==================
@@ -35,6 +34,12 @@ local Scripts = {
         print("🎮 +1 Aura Por Clic detectado → Ejecutando...")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Auraxclick"))()
     end,
+
+    -- ================== NUEVO 2 ==================
+    [115196082055466] = function() -- Shoot The Boss
+        print("🎮 Shoot The Boss detectado → Ejecutando...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Dispara"))()
+    end,
 }
 
 -- ================== DETECCIÓN ==================
@@ -44,7 +49,7 @@ if scriptFunc then
 else
     print("❌ NO SUPPORT")
     warn("Este juego no está soportado en este loader.")
-   
+  
     -- Cambia "true" a "false" si no quieres que te kickee
     if true then
         wait(1.5)
