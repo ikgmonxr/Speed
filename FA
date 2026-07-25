@@ -1,0 +1,955 @@
+--==================================================
+-- IKGHUB KEY SYSTEM
+-- PC + MOBILE + TABLET OPTIMIZED
+-- LocalScript
+--==================================================
+
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local Lighting = game:GetService("Lighting")
+
+local player = Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+--==================================================
+-- SCREEN GUI
+--==================================================
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "IKGHUB_KeySystem"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = playerGui
+
+--==================================================
+-- RESPONSIVE SCALE
+--==================================================
+
+local UIScale = Instance.new("UIScale")
+UIScale.Name = "ResponsiveScale"
+UIScale.Parent = ScreenGui
+
+local function updateScale()
+
+	local camera = workspace.CurrentCamera
+
+	if not camera then
+		return
+	end
+
+	local viewport = camera.ViewportSize
+	local width = viewport.X
+
+	if width >= 1400 then
+
+		-- PC grande
+		UIScale.Scale = 1
+
+	elseif width >= 1000 then
+
+		-- Laptop / PC pequeño
+		UIScale.Scale = 0.9
+
+	elseif width >= 700 then
+
+		-- Tablet
+		UIScale.Scale = 0.78
+
+	else
+
+		-- Móvil
+		UIScale.Scale = 0.65
+
+	end
+
+end
+
+updateScale()
+
+workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(updateScale)
+
+--==================================================
+-- FRAME PRINCIPAL
+--==================================================
+
+local KEY = Instance.new("Frame")
+KEY.Name = "KEY"
+KEY.Parent = ScreenGui
+KEY.AnchorPoint = Vector2.new(0.5, 0.5)
+KEY.Position = UDim2.new(0.5, 0, 0.5, 0)
+KEY.Size = UDim2.new(0, 534, 0, 402)
+KEY.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+KEY.BackgroundTransparency = 0.2
+KEY.BorderSizePixel = 0
+KEY.ZIndex = 10
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.Parent = KEY
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Color = Color3.fromRGB(212, 255, 244)
+UIStroke.Thickness = 3
+UIStroke.Parent = KEY
+
+local UIStroke2 = Instance.new("UIStroke")
+UIStroke2.Color = Color3.fromRGB(36, 43, 41)
+UIStroke2.Thickness = 6
+UIStroke2.Transparency = 0.3
+UIStroke2.Parent = KEY
+
+--==================================================
+-- IMAGEN DEL HUB
+--==================================================
+
+local imagendeelhub = Instance.new("ImageLabel")
+imagendeelhub.Name = "imagendeelhub"
+imagendeelhub.Parent = KEY
+imagendeelhub.BackgroundTransparency = 1
+imagendeelhub.AnchorPoint = Vector2.new(0.5, 0)
+imagendeelhub.Position = UDim2.new(0.5, 0, 0.045, 0)
+imagendeelhub.Size = UDim2.new(0, 81, 0, 78)
+imagendeelhub.Image = "rbxassetid://92186739587440"
+imagendeelhub.ScaleType = Enum.ScaleType.Fit
+
+local UICorner4 = Instance.new("UICorner")
+UICorner4.CornerRadius = UDim.new(0, 20)
+UICorner4.Parent = imagendeelhub
+
+--==================================================
+-- TITULO
+--==================================================
+
+local na = Instance.new("TextLabel")
+na.Name = "na"
+na.Parent = KEY
+na.BackgroundTransparency = 1
+na.AnchorPoint = Vector2.new(0.5, 0)
+na.Position = UDim2.new(0.5, 0, 0.205, 0)
+na.Size = UDim2.new(0.7, 0, 0, 50)
+na.Font = Enum.Font.SourceSansBold
+na.Text = "IKGHUB"
+na.TextColor3 = Color3.fromRGB(255, 255, 255)
+na.TextSize = 25
+na.TextWrapped = true
+
+--==================================================
+-- DESCRIPCION
+--==================================================
+
+local TextLabel = Instance.new("TextLabel")
+TextLabel.Name = "Description"
+TextLabel.Parent = KEY
+TextLabel.BackgroundTransparency = 1
+TextLabel.AnchorPoint = Vector2.new(0.5, 0)
+TextLabel.Position = UDim2.new(0.5, 0, 0.3, 0)
+TextLabel.Size = UDim2.new(0.75, 0, 0, 25)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "Enter your key to unlock the hub."
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextSize = 15
+TextLabel.TextWrapped = true
+
+--==================================================
+-- KEY TEXTBOX
+--==================================================
+
+local Enter_your_key__ = Instance.new("TextBox")
+Enter_your_key__.Name = "KeyBox"
+Enter_your_key__.Parent = KEY
+Enter_your_key__.BackgroundColor3 = Color3.fromRGB(50, 47, 35)
+Enter_your_key__.BackgroundTransparency = 0.5
+Enter_your_key__.Position = UDim2.new(0.075, 0, 0.373, 0)
+Enter_your_key__.Size = UDim2.new(0.85, 0, 0, 67)
+Enter_your_key__.Font = Enum.Font.SourceSans
+Enter_your_key__.PlaceholderText = "Enter your key.."
+Enter_your_key__.Text = ""
+Enter_your_key__.TextColor3 = Color3.fromRGB(255, 255, 255)
+Enter_your_key__.PlaceholderColor3 = Color3.fromRGB(180, 180, 180)
+Enter_your_key__.TextSize = 23
+Enter_your_key__.TextXAlignment = Enum.TextXAlignment.Left
+Enter_your_key__.ClearTextOnFocus = false
+Enter_your_key__.MultiLine = false
+
+local KeyPadding = Instance.new("UIPadding")
+KeyPadding.PaddingLeft = UDim.new(0, 15)
+KeyPadding.PaddingRight = UDim.new(0, 15)
+KeyPadding.Parent = Enter_your_key__
+
+local UICorner7 = Instance.new("UICorner")
+UICorner7.CornerRadius = UDim.new(0, 12)
+UICorner7.Parent = Enter_your_key__
+
+--==================================================
+-- GET KEY
+--==================================================
+
+local key = Instance.new("TextButton")
+key.Name = "GetKey"
+key.Parent = KEY
+key.BackgroundColor3 = Color3.fromRGB(50, 47, 35)
+key.BackgroundTransparency = 0.1
+key.Position = UDim2.new(0.075, 0, 0.587, 0)
+key.Size = UDim2.new(0.39, 0, 0, 66)
+key.Font = Enum.Font.SourceSansBold
+key.Text = "Get Key"
+key.TextColor3 = Color3.fromRGB(212, 255, 244)
+key.TextSize = 20
+key.AutoButtonColor = true
+
+local UICorner5 = Instance.new("UICorner")
+UICorner5.CornerRadius = UDim.new(0, 12)
+UICorner5.Parent = key
+
+--==================================================
+-- REDEEM KEY
+--==================================================
+
+local VerifyButton = Instance.new("TextButton")
+VerifyButton.Name = "VerifyButton"
+VerifyButton.Parent = KEY
+VerifyButton.BackgroundColor3 = Color3.fromRGB(212, 255, 244)
+VerifyButton.BackgroundTransparency = 0.1
+VerifyButton.Position = UDim2.new(0.497, 0, 0.587, 0)
+VerifyButton.Size = UDim2.new(0.468, 0, 0, 66)
+VerifyButton.Font = Enum.Font.SourceSansBold
+VerifyButton.Text = "Redeem Key"
+VerifyButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+VerifyButton.TextSize = 20
+VerifyButton.AutoButtonColor = true
+
+local UICorner2 = Instance.new("UICorner")
+UICorner2.CornerRadius = UDim.new(0, 12)
+UICorner2.Parent = VerifyButton
+
+--==================================================
+-- CERRAR
+--==================================================
+
+local Cerrar = Instance.new("ImageButton")
+Cerrar.Name = "Cerrar"
+Cerrar.Parent = KEY
+Cerrar.BackgroundTransparency = 1
+Cerrar.AnchorPoint = Vector2.new(1, 0)
+Cerrar.Position = UDim2.new(0.97, 0, 0.025, 0)
+Cerrar.Size = UDim2.new(0, 35, 0, 35)
+Cerrar.Image = "rbxassetid://7072720872"
+Cerrar.ScaleType = Enum.ScaleType.Fit
+Cerrar.AutoButtonColor = true
+
+--==================================================
+-- DISCORD
+--==================================================
+
+local Discordinv = Instance.new("ImageButton")
+Discordinv.Name = "Discordinv"
+Discordinv.Parent = KEY
+Discordinv.BackgroundTransparency = 1
+Discordinv.Position = UDim2.new(0.05, 0, 0.85, 0)
+Discordinv.Size = UDim2.new(0, 40, 0, 40)
+Discordinv.Image = "rbxassetid://9338693770"
+Discordinv.ScaleType = Enum.ScaleType.Fit
+Discordinv.AutoButtonColor = true
+
+--==================================================
+-- SCRIPTS BUTTON
+--==================================================
+
+local Scriptsbtn = Instance.new("ImageButton")
+Scriptsbtn.Name = "Scriptsbtn"
+Scriptsbtn.Parent = KEY
+Scriptsbtn.BackgroundTransparency = 1
+Scriptsbtn.Position = UDim2.new(0.84, 0, 0.85, 0)
+Scriptsbtn.Size = UDim2.new(0, 40, 0, 40)
+Scriptsbtn.Image = "rbxassetid://117047144730308"
+Scriptsbtn.ScaleType = Enum.ScaleType.Fit
+Scriptsbtn.AutoButtonColor = true
+
+--==================================================
+-- CONFIGURE BUTTON
+--==================================================
+
+local Configurebtn = Instance.new("ImageButton")
+Configurebtn.Name = "Configurebtn"
+Configurebtn.Parent = KEY
+Configurebtn.BackgroundTransparency = 1
+Configurebtn.Position = UDim2.new(0.92, 0, 0.85, 0)
+Configurebtn.Size = UDim2.new(0, 40, 0, 40)
+Configurebtn.Image = "rbxassetid://13302393221"
+Configurebtn.ScaleType = Enum.ScaleType.Fit
+Configurebtn.AutoButtonColor = true
+
+--==================================================
+-- SCRIPTS FRAME
+--==================================================
+
+local Scripts = Instance.new("Frame")
+Scripts.Name = "Scripts"
+Scripts.Parent = KEY
+Scripts.AnchorPoint = Vector2.new(1, 0.5)
+Scripts.Position = UDim2.new(0, -15, 0.5, 0)
+Scripts.Size = UDim2.new(0, 256, 0, 350)
+Scripts.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Scripts.BackgroundTransparency = 0.2
+Scripts.BorderSizePixel = 0
+Scripts.Visible = false
+Scripts.ZIndex = 20
+
+local UICorner11 = Instance.new("UICorner")
+UICorner11.CornerRadius = UDim.new(0, 12)
+UICorner11.Parent = Scripts
+
+local TextLabel2 = Instance.new("TextLabel")
+TextLabel2.Parent = Scripts
+TextLabel2.BackgroundTransparency = 1
+TextLabel2.Position = UDim2.new(0.13, 0, 0.08, 0)
+TextLabel2.Size = UDim2.new(0.74, 0, 0, 30)
+TextLabel2.Font = Enum.Font.SourceSansBold
+TextLabel2.Text = "Scripts:"
+TextLabel2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel2.TextSize = 18
+
+local TextLabel3 = Instance.new("TextLabel")
+TextLabel3.Parent = Scripts
+TextLabel3.BackgroundTransparency = 1
+TextLabel3.Position = UDim2.new(0.13, 0, 0.17, 0)
+TextLabel3.Size = UDim2.new(0.74, 0, 0.75, 0)
+TextLabel3.Font = Enum.Font.SourceSans
+TextLabel3.Text = "・⚡ Updated Scripts\n・🎯 Auras and Abilities\n・🏃 Movement Scripts\n・💥 Unlimited Money\n・🛠️ Exclusive Tools\n・🔥 New Scripts Added Constantly\n・📚 Organized Script Library"
+TextLabel3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel3.TextSize = 15
+TextLabel3.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel3.TextYAlignment = Enum.TextYAlignment.Top
+TextLabel3.TextWrapped = true
+
+--==================================================
+-- CONFIGURE FRAME
+--==================================================
+
+local Configure = Instance.new("Frame")
+Configure.Name = "Configure"
+Configure.Parent = KEY
+Configure.AnchorPoint = Vector2.new(0, 0.5)
+Configure.Position = UDim2.new(1, 15, 0.5, 0)
+Configure.Size = UDim2.new(0, 256, 0, 350)
+Configure.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Configure.BackgroundTransparency = 0.2
+Configure.BorderSizePixel = 0
+Configure.Visible = false
+Configure.ZIndex = 20
+
+local UICorner13 = Instance.new("UICorner")
+UICorner13.CornerRadius = UDim.new(0, 12)
+UICorner13.Parent = Configure
+
+local TextLabel4 = Instance.new("TextLabel")
+TextLabel4.Parent = Configure
+TextLabel4.BackgroundTransparency = 1
+TextLabel4.Position = UDim2.new(0.13, 0, 0.08, 0)
+TextLabel4.Size = UDim2.new(0.74, 0, 0, 30)
+TextLabel4.Font = Enum.Font.SourceSansBold
+TextLabel4.Text = "Configure"
+TextLabel4.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel4.TextSize = 18
+
+--==================================================
+-- CONFIG BUTTONS
+--==================================================
+
+local function createConfigButton(name, text, y)
+
+	local button = Instance.new("TextButton")
+
+	button.Name = name
+	button.Parent = Configure
+	button.BackgroundColor3 = Color3.fromRGB(53, 49, 39)
+	button.BackgroundTransparency = 0.1
+	button.Position = UDim2.new(0.08, 0, y, 0)
+	button.Size = UDim2.new(0.84, 0, 0, 51)
+	button.Font = Enum.Font.SourceSansBold
+	button.Text = text
+	button.TextColor3 = Color3.fromRGB(255, 255, 255)
+	button.TextSize = 18
+	button.AutoButtonColor = true
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 10)
+	corner.Parent = button
+
+	return button
+
+end
+
+local VerifyButton2 = createConfigButton(
+	"BlurButton",
+	"○ Blur",
+	0.23
+)
+
+local VerifyButton3 = createConfigButton(
+	"DarkModeButton",
+	"○ Dark Mode",
+	0.41
+)
+
+local VerifyButton4 = createConfigButton(
+	"CreditsButton",
+	"Credits",
+	0.59
+)
+
+--==================================================
+-- CREDITS
+--==================================================
+
+local Credits = Instance.new("Frame")
+Credits.Name = "Credits"
+Credits.Parent = KEY
+Credits.AnchorPoint = Vector2.new(0.5, 1)
+Credits.Position = UDim2.new(0.5, 0, 0, -15)
+Credits.Size = UDim2.new(0, 256, 0, 131)
+Credits.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Credits.BackgroundTransparency = 0.2
+Credits.BorderSizePixel = 0
+Credits.Visible = false
+Credits.ZIndex = 30
+
+local UICorner20 = Instance.new("UICorner")
+UICorner20.CornerRadius = UDim.new(0, 12)
+UICorner20.Parent = Credits
+
+local TextLabel5 = Instance.new("TextLabel")
+TextLabel5.Parent = Credits
+TextLabel5.BackgroundTransparency = 1
+TextLabel5.Position = UDim2.new(0.1, 0, 0.1, 0)
+TextLabel5.Size = UDim2.new(0.8, 0, 0.8, 0)
+TextLabel5.Font = Enum.Font.SourceSans
+TextLabel5.Text = "Credits:\n\nOwner: Ikgmonxr\nCo-owner: Crixxnavi"
+TextLabel5.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel5.TextSize = 16
+TextLabel5.TextWrapped = true
+
+--==================================================
+-- ANIMACIÓN DE APERTURA
+--==================================================
+
+local originalKeySize = KEY.Size
+
+KEY.Size = UDim2.new(0, 0, 0, 0)
+
+TweenService:Create(
+	KEY,
+	TweenInfo.new(
+		0.5,
+		Enum.EasingStyle.Back,
+		Enum.EasingDirection.Out
+	),
+	{
+		Size = originalKeySize
+	}
+):Play()
+
+--==================================================
+-- GET KEY
+--==================================================
+
+key.MouseButton1Click:Connect(function()
+
+	local link = "https://sites.google.com/view/key-sistemf/página-principal"
+
+	setclipboard(link)
+
+	key.Text = "✅ Link Copied!"
+	key.BackgroundColor3 = Color3.fromRGB(0, 170, 0)
+
+	task.wait(1.5)
+
+	if key.Parent then
+		key.Text = "Get Key"
+		key.BackgroundColor3 = Color3.fromRGB(50, 47, 35)
+	end
+
+end)
+
+--==================================================
+-- DISCORD
+--==================================================
+
+Discordinv.MouseButton1Click:Connect(function()
+
+	local link = "https://discord.gg/DWyDS8pE8C"
+
+	setclipboard(link)
+
+end)
+
+--==================================================
+-- CERRAR
+--==================================================
+
+Cerrar.MouseButton1Click:Connect(function()
+
+	local closeTween = TweenService:Create(
+		KEY,
+		TweenInfo.new(
+			0.35,
+			Enum.EasingStyle.Back,
+			Enum.EasingDirection.In
+		),
+		{
+			Size = UDim2.new(0, 0, 0, 0),
+			BackgroundTransparency = 1
+		}
+	)
+
+	closeTween:Play()
+
+	closeTween.Completed:Connect(function()
+
+		KEY.Visible = false
+
+	end)
+
+end)
+
+--==================================================
+-- SCRIPTS
+--==================================================
+
+local scriptsOpen = false
+
+Scriptsbtn.MouseButton1Click:Connect(function()
+
+	scriptsOpen = not scriptsOpen
+
+	if scriptsOpen then
+
+		Scripts.Visible = true
+		Scripts.Size = UDim2.new(0, 0, 0, 350)
+
+		TweenService:Create(
+			Scripts,
+			TweenInfo.new(0.35, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
+			{
+				Size = UDim2.new(0, 256, 0, 350)
+			}
+		):Play()
+
+	else
+
+		local tween = TweenService:Create(
+			Scripts,
+			TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.In),
+			{
+				Size = UDim2.new(0, 0, 0, 350)
+			}
+		)
+
+		tween:Play()
+
+		tween.Completed:Connect(function()
+
+			Scripts.Visible = false
+			Scripts.Size = UDim2.new(0, 256, 0, 350)
+
+		end)
+
+	end
+
+end)
+
+--==================================================
+-- CONFIGURE
+--==================================================
+
+local configureOpen = false
+
+Configurebtn.MouseButton1Click:Connect(function()
+
+	configureOpen = not configureOpen
+
+	if configureOpen then
+
+		Configure.Visible = true
+		Configure.Size = UDim2.new(0, 0, 0, 350)
+
+		TweenService:Create(
+			Configure,
+			TweenInfo.new(0.35, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
+			{
+				Size = UDim2.new(0, 256, 0, 350)
+			}
+		):Play()
+
+	else
+
+		local tween = TweenService:Create(
+			Configure,
+			TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.In),
+			{
+				Size = UDim2.new(0, 0, 0, 350)
+			}
+		)
+
+		tween:Play()
+
+		tween.Completed:Connect(function()
+
+			Configure.Visible = false
+			Configure.Size = UDim2.new(0, 256, 0, 350)
+
+		end)
+
+	end
+
+end)
+
+--==================================================
+-- BLUR
+--==================================================
+
+local blur = Lighting:FindFirstChild("SettingsBlur")
+
+if not blur then
+
+	blur = Instance.new("BlurEffect")
+	blur.Name = "SettingsBlur"
+	blur.Size = 0
+	blur.Parent = Lighting
+
+end
+
+local blurEnabled = false
+
+VerifyButton2.MouseButton1Click:Connect(function()
+
+	blurEnabled = not blurEnabled
+
+	if blurEnabled then
+
+		TweenService:Create(
+			blur,
+			TweenInfo.new(0.3),
+			{
+				Size = 15
+			}
+		):Play()
+
+		VerifyButton2.Text = "● Blur"
+
+	else
+
+		TweenService:Create(
+			blur,
+			TweenInfo.new(0.3),
+			{
+				Size = 0
+			}
+		):Play()
+
+		VerifyButton2.Text = "○ Blur"
+
+	end
+
+end)
+
+--==================================================
+-- DARK MODE
+--==================================================
+
+local darkMode = false
+
+VerifyButton3.MouseButton1Click:Connect(function()
+
+	darkMode = not darkMode
+
+	if darkMode then
+
+		VerifyButton3.Text = "● Dark Mode"
+
+		TweenService:Create(
+			KEY,
+			TweenInfo.new(0.3),
+			{
+				BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+			}
+		):Play()
+
+	else
+
+		VerifyButton3.Text = "○ Dark Mode"
+
+		TweenService:Create(
+			KEY,
+			TweenInfo.new(0.3),
+			{
+				BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+			}
+		):Play()
+
+	end
+
+end)
+
+--==================================================
+-- CREDITS
+--==================================================
+
+local creditsOpen = false
+
+VerifyButton4.MouseButton1Click:Connect(function()
+
+	creditsOpen = not creditsOpen
+
+	if creditsOpen then
+
+		Credits.Visible = true
+		Credits.Size = UDim2.new(0, 0, 0, 131)
+
+		TweenService:Create(
+			Credits,
+			TweenInfo.new(0.35, Enum.EasingStyle.Quint, Enum.EasingDirection.Out),
+			{
+				Size = UDim2.new(0, 256, 0, 131)
+			}
+		):Play()
+
+	else
+
+		local tween = TweenService:Create(
+			Credits,
+			TweenInfo.new(0.3, Enum.EasingStyle.Quint, Enum.EasingDirection.In),
+			{
+				Size = UDim2.new(0, 0, 0, 131)
+			}
+		)
+
+		tween:Play()
+
+		tween.Completed:Connect(function()
+
+			Credits.Visible = false
+			Credits.Size = UDim2.new(0, 256, 0, 131)
+
+		end)
+
+	end
+
+end)
+
+--==================================================
+-- VERIFICAR KEY
+--==================================================
+
+local function verifyKey()
+
+	local keyText = Enter_your_key__.Text
+
+	if keyText:find("KEY%-FREE%-") then
+
+		VerifyButton.Text = "✅ Valid Key"
+
+		task.wait(0.5)
+
+		local closeTween = TweenService:Create(
+			KEY,
+			TweenInfo.new(
+				0.6,
+				Enum.EasingStyle.Back,
+				Enum.EasingDirection.In
+			),
+			{
+				Size = UDim2.new(0, 0, 0, 0),
+				BackgroundTransparency = 1
+			}
+		)
+
+		closeTween:Play()
+
+		closeTween.Completed:Connect(function()
+
+			KEY.Visible = false
+
+			local success, err = pcall(function()
+
+				loadstring(
+					game:HttpGet(
+						"https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/HUB.lua"
+					)
+				)()
+
+			end)
+
+			if not success then
+
+				warn("❌ Error al cargar HUB.lua: " .. tostring(err))
+
+			end
+
+		end)
+
+	else
+
+		VerifyButton.Text = "❌ Invalid Key"
+
+		Enter_your_key__.Text = ""
+
+		task.wait(1.5)
+
+		VerifyButton.Text = "Redeem Key"
+
+	end
+
+end
+
+VerifyButton.MouseButton1Click:Connect(verifyKey)
+
+Enter_your_key__.FocusLost:Connect(function(enterPressed)
+
+	if enterPressed then
+
+		verifyKey()
+
+	end
+
+end)
+
+--==================================================
+-- DRAG PC + MÓVIL
+--==================================================
+
+local dragging = false
+local dragStart = nil
+local startPosition = nil
+local dragInput = nil
+
+local function updateDrag(input)
+
+	if not dragging then
+		return
+	end
+
+	local delta = input.Position - dragStart
+
+	KEY.Position = UDim2.new(
+		startPosition.X.Scale,
+		startPosition.X.Offset + delta.X,
+		startPosition.Y.Scale,
+		startPosition.Y.Offset + delta.Y
+	)
+
+end
+
+KEY.InputBegan:Connect(function(input)
+
+	if input.UserInputType == Enum.UserInputType.MouseButton1
+		or input.UserInputType == Enum.UserInputType.Touch then
+
+		dragging = true
+
+		dragStart = input.Position
+		startPosition = KEY.Position
+
+		input.Changed:Connect(function()
+
+			if input.UserInputState == Enum.UserInputState.End then
+
+				dragging = false
+
+			end
+
+		end)
+
+	end
+
+end)
+
+KEY.InputChanged:Connect(function(input)
+
+	if input.UserInputType == Enum.UserInputType.MouseMovement
+		or input.UserInputType == Enum.UserInputType.Touch then
+
+		dragInput = input
+
+	end
+
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+
+	if input == dragInput and dragging then
+
+		updateDrag(input)
+
+	end
+
+end)
+
+--==================================================
+-- AJUSTE DE PANELES PARA MÓVIL
+--==================================================
+
+local function updateMobilePanels()
+
+	local camera = workspace.CurrentCamera
+
+	if not camera then
+		return
+	end
+
+	local viewport = camera.ViewportSize
+
+	if viewport.X < 700 then
+
+		-- Scripts debajo
+		Scripts.AnchorPoint = Vector2.new(0.5, 0)
+		Scripts.Position = UDim2.new(0.5, 0, 1, 10)
+		Scripts.Size = UDim2.new(0, 240, 0, 300)
+
+		-- Configure debajo
+		Configure.AnchorPoint = Vector2.new(0.5, 0)
+		Configure.Position = UDim2.new(0.5, 0, 1, 10)
+		Configure.Size = UDim2.new(0, 240, 0, 300)
+
+		-- Credits arriba
+		Credits.AnchorPoint = Vector2.new(0.5, 1)
+		Credits.Position = UDim2.new(0.5, 0, 0, -10)
+		Credits.Size = UDim2.new(0, 240, 0, 120)
+
+	else
+
+		-- PC / Laptop / Tablet
+
+		Scripts.AnchorPoint = Vector2.new(1, 0.5)
+		Scripts.Position = UDim2.new(0, -15, 0.5, 0)
+		Scripts.Size = UDim2.new(0, 256, 0, 350)
+
+		Configure.AnchorPoint = Vector2.new(0, 0.5)
+		Configure.Position = UDim2.new(1, 15, 0.5, 0)
+		Configure.Size = UDim2.new(0, 256, 0, 350)
+
+		Credits.AnchorPoint = Vector2.new(0.5, 1)
+		Credits.Position = UDim2.new(0.5, 0, 0, -15)
+		Credits.Size = UDim2.new(0, 256, 0, 131)
+
+	end
+
+end
+
+updateMobilePanels()
+
+workspace.CurrentCamera:GetPropertyChangedSignal("ViewportSize"):Connect(
+	updateMobilePanels
+)
+
+--==================================================
+-- FINAL
+--==================================================
+
+print("✅ IKGHUB Key System cargado correctamente")
+print("📱 Optimizado para móvil")
+print("🖥️ Optimizado para PC")
+print("💻 Optimizado para laptop")
+print("📲 Optimizado para tablet")
