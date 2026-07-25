@@ -32,7 +32,6 @@ local Scripts = {
         print("🎮 Shoot The Boss detectado → Ejecutando...")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Dispara"))()
     end,
-    -- ================== NUEVO ==================
     [124868078719468] = function() -- Climb a Ramp
         print("🎮 Climb a Ramp detectado → Ejecutando...")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Sube.lua"))()
