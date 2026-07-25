@@ -1,6 +1,6 @@
 -- =============================================== \\
 -- // GAME DETECTOR + SCRIPT LOADER
--- // 8 juegos agregados
+-- // 9 juegos agregados
 -- =============================================== \\
 local PlaceId = game.PlaceId
 local Players = game:GetService("Players")
@@ -38,7 +38,11 @@ local Scripts = {
     end,
     [82236511306295] = function() -- 1 Ladder Per Click
         print("🎮 1 Ladder Per Click detectado → Ejecutando...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Ladder"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Ladder%20Per%20Game"))()
+    end,
+    [137738279671517] = function() -- 1 Oxygen Per Click
+        print("🎮 1 Oxygen Per Click detectado → Ejecutando...")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Water"))()
     end,
 }
 -- ================== DETECCIÓN ==================
