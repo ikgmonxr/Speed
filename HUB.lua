@@ -39,7 +39,7 @@ local Scripts = {
     end,
     [82236511306295] = function() -- 1 Ladder Per Click
         print("🎮 1 Ladder Per Click detectado → Ejecutando...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Ladder%20Per%20Game"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/Ladder"))()
     end,
 }
 -- ================== DETECCIÓN ==================
