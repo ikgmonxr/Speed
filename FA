@@ -394,7 +394,7 @@ tween:Play()
 tween.Completed:Once(function()
 KEY.Visible = false
 -- Cargar el Hub después de que la key sea correcta
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Ikgonavi/refs/heads/main/Hub"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/HUB.lua"))()
 end)
 else
 StatusLabel.Text = "✗ Invalid Key"
