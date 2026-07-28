@@ -10,12 +10,11 @@ print("🔍 Detector de juegos cargado...")
 local Scripts = {
     [135856908115931] = function() -- +1 Strength Per Click
         print("🎮 MVS detectado → Ejecutando...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/imgmtt-bot/Speed/refs/heads/main/Fuerzaxclick.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ikgmonxr/Speed/refs/heads/main/sdsd"))()
     end,
     [116223724643557] = function() -- +1 Magic Evolution
         print("🎮 +1 Evolución Mágica detectado → Ejecutando...")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/imgmtt-bot/Speed/refs/heads/main/Evolucion.lua"))()
- 
 }
 -- ================== DETECCIÓN ==================
 local scriptFunc = Scripts[PlaceId]
