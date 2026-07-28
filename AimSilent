@@ -1,12 +1,9 @@
--- =============================================== \\
--- // GAME DETECTOR + SCRIPT LOADER
--- // 9 juegos agregados
--- =============================================== \\
+
 local PlaceId = game.PlaceId
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 print("🔍 Detector de juegos cargado...")
--- ================== TUS SCRIPTS ==================
+
 local Scripts = {
     [135856908115931] = function() -- +1 Strength Per Click
         print("🎮 MVS detectado → Ejecutando...")
@@ -16,7 +13,7 @@ local Scripts = {
         print("🎮 +1 Evolución Mágica detectado → Ejecutando...")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/imgmtt-bot/Speed/refs/heads/main/Evolucion.lua"))()
 }
--- ================== DETECCIÓN ==================
+
 local scriptFunc = Scripts[PlaceId]
 if scriptFunc then
     scriptFunc()
